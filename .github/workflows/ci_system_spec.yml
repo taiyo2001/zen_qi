@@ -36,7 +36,7 @@ jobs:
       - name: Setup Rails
         run: |
           bin/rails db:migrate:reset
-          bundle exec rake assets:precompile
+          # bundle exec rake assets:precompile
       - name: Install chrome
         run: |
           wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -

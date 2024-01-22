@@ -19,7 +19,7 @@ jobs:
           POSTGRES_USER: ${{ env.DB_USER }}
           POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
         ports:
-          - 54322:5432
+          - 5432:5432
         volumes:
           - postgres_volume:/var/lib/postgresql/data
     steps:
@@ -35,10 +35,13 @@ jobs:
       - name: Setup Rails
         run: |
           bin/rails db:migrate:reset
-          bundle exec rake assets:precompile
+          # bundle exec rake assets:precompile
       - name: Run Rubocop
         run: |
           bundle exec rubocop app lib spec
+      - name: Run ERB-Lint
+        run: |
+          bundle exec erblint --lint-all
       - name: Run Brakeman
         run: |
           bundle exec brakeman --no-pager
