@@ -1,0 +1,48 @@
+name: Run Rubocop Brakeman  RSpec(Without System Spec)
+run-name: CI
+on:
+  push:
+    pull_request: {}
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TZ: Asia/Tokyo
+      DB_HOST: localhost
+      DB_USER: ci
+      DB_PASSWORD: password
+      RAILS_ENV: test
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: password
+        ports:
+          - 54322:5432
+        volumes:
+          - postgres_volume:/var/lib/postgresql/data
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .tool-version
+          bundler-cache: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: .tool-version
+          cache: 'yarn'
+      - name: Setup Rails
+        run: |
+          bin/rails db:migrate:reset
+          bundle exec rake assets:precompile
+      - name: Run Rubocop
+        run: |
+          bundle exec rubocop app lib spec
+      - name: Run Brakeman
+        run: |
+          bundle exec brakeman --no-pager
+      - name: Run RSpec
+        run: |
+          bundle exec rspec --exclude-pattern "spec/system/**/*_spec.rb"
