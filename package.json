@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "private": "true",
+  "dependencies": {
+    "@alpinejs/collapse": "^3.13.2",
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/turbo-rails": "^7.3.0",
+    "@popperjs/core": "^2.11.5",
+    "alpine": "^0.2.1",
+    "alpine-turbo-drive-adapter": "^2.1.0",
+    "alpinejs": "^3.13.1",
+    "esbuild": "^0.14.49",
+    "sass": "^1.53.0"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "sass  ./app/assets/stylesheets/application.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
+  }
+}

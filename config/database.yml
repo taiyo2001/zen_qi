@@ -20,6 +20,10 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
+  user: <%= ENV.fetch("DB_USER") { "postgres" } %>
+  port: <%= ENV.fetch("DB_PORT") { 5432 } %>
+  password: <%= ENV.fetch("DB_PASSWORD") { "password" } %>
 
 development:
   <<: *default
@@ -29,7 +33,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: zen_qi
+  #username: base
 
   # The password associated with the postgres role (username).
   #password:
@@ -41,7 +45,6 @@ development:
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  #port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
@@ -82,5 +85,5 @@ test:
 production:
   <<: *default
   database: zen_qi_production
-  username: zen_qi
-  password: <%= ENV["ZEN_QI_DATABASE_PASSWORD"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
