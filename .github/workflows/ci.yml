@@ -2,7 +2,6 @@ name: Run Rubocop Brakeman  RSpec(Without System Spec)
 run-name: CI
 on:
   push:
-  pull_request: {}
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -10,15 +9,15 @@ jobs:
     env:
       TZ: Asia/Tokyo
       DB_HOST: localhost
-      DB_USER: ci
+      DB_USER: postgres
       DB_PASSWORD: password
       RAILS_ENV: test
     services:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: ci
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
         ports:
           - 54322:5432
         volumes:
