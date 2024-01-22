@@ -65,6 +65,7 @@ group :development, :test do
   gem 'htmlbeautifier'
   gem 'rails_best_practices', require: false
   gem 'rubocop'
+  gem 'erb_lint'
 
   # Debugger
   gem 'better_errors'

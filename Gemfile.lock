@@ -76,6 +76,13 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
       rouge (>= 1.0.0)
+    better_html (2.0.2)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
+      ast (~> 2.0)
+      erubi (~> 1.4)
+      parser (>= 2.4)
+      smart_properties
     bigdecimal (3.1.6)
     bindex (0.8.1)
     bootsnap (1.17.1)
@@ -186,6 +193,13 @@ GEM
       zeitwerk (~> 2.6)
     email_validator (2.2.4)
       activemodel
+    erb_lint (0.5.0)
+      activesupport
+      better_html (>= 2.0.1)
+      parser (>= 2.7.1.4)
+      rainbow
+      rubocop
+      smart_properties
     erbse (0.1.4)
       temple
     erubi (1.12.0)
@@ -428,6 +442,7 @@ GEM
     sitemap_generator (6.3.0)
       builder (~> 3.0)
     slack-notifier (2.4.0)
+    smart_properties (1.17.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -493,6 +508,7 @@ DEPENDENCIES
   discard
   dotenv-rails
   email_validator
+  erb_lint
   factory_bot_rails
   faker
   fastimage
