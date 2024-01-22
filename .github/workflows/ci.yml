@@ -2,7 +2,7 @@ name: Run Rubocop Brakeman  RSpec(Without System Spec)
 run-name: CI
 on:
   push:
-    pull_request: {}
+  pull_request:
 jobs:
   ci:
     runs-on: ubuntu-latest
