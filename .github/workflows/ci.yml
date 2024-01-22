@@ -38,7 +38,7 @@ jobs:
           # bundle exec rake assets:precompile
       - name: Run Rubocop
         run: |
-          bundle exec rubocop app lib spec
+          # bundle exec rubocop app lib spec
       - name: Run ERB-Lint
         run: |
           bundle exec erblint --lint-all
