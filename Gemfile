@@ -50,6 +50,8 @@ gem 'redcarpet'
 gem 'rubyzip', require: false
 gem 'shrine'
 
+gem 'counter_culture'
+
 gem 'simple_form'
 gem 'tailwindcss-rails', '~> 2.0'
 
@@ -62,10 +64,10 @@ group :development, :test do
   # Code Analyze
   gem 'brakeman', require: false
   gem 'bullet'
+  gem 'erb_lint'
   gem 'htmlbeautifier'
   gem 'rails_best_practices', require: false
   gem 'rubocop'
-  gem 'erb_lint'
 
   # Debugger
   gem 'better_errors'
