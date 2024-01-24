@@ -1,0 +1,2 @@
+class QuestionGood < ApplicationRecord
+end
