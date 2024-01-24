@@ -1,6 +1,5 @@
 class Article < ApplicationRecord
   belongs_to :user
-  belongs_to :tag
 
   has_many :article_goods, dependent: :destroy
   has_many :article_stocks, dependent: :destroy
