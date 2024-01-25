@@ -1,0 +1,25 @@
+<% if @article.errors.any? %>
+  <div>
+    <p>エラーが発生しました:</p>
+    <ul>
+      <% @article.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="h-full">
+  <%= form.text_field :title,
+                         placeholder: '記事タイトル',
+                         class: 'rounded border-none py-1 mb-2 w-full outline-none focus:outline-none focus:border-none font-bold text-2xl' %>
+  <%= form.text_field :text_tags,
+                         placeholder: 'タグを入力してください。スペース区切りで5つまで入力できます.',
+                         class: 'rounded border-none py-1 mb-2 w-full focus:outline-none' %>
+  <%= form.text_area :content,
+                        placeholder: '本文',
+                        class: 'rounded border-custom-gray py-1 mb-2 w-full h-full focus:outline-none focus:border-none' %>
+</div>
+<div class="">
+  <%= form.submit '下書き保存', name: 'draft_button', class: 'font-bold bg-white p-2 rounded-lg mr-2 cursor-pointer' %>
+  <%= form.submit '公開設定', name: 'publish_button', class: 'font-bold text-white bg-custom-green border border-green-500 p-2 rounded-lg cursor-pointer' %>
+</div>

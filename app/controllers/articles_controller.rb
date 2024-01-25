@@ -20,6 +20,25 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
+  def edit
+    @article = Article.find(params[:id])
+    tag_names = @article.tags.map(&:name)
+    @article.text_tags = tag_names.join(', ')
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    status = params[:publish_button].present? ? 'active' : 'inactive'
+
+    ActiveRecord::Base.transaction do
+      if @article.update(article_create_params.merge(status:))
+        redirect_to @article
+      else
+        render :new
+      end
+    end
+  end
+
   private
 
   def article_create_params
