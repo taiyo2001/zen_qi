@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root 'home#index'
+
+  resources :articles, only: %i[new show create edit update]
+  resources :users, only: %i[new show create edit update]
 end

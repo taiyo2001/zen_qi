@@ -1,0 +1,29 @@
+<%# <div class="pt-10 px-5 pb-20"> %>
+<div class="">
+  <div class="bg-white pt-10 px-20 mb-10">
+    <% if !@article.private? %>
+      <div class="bg-custom-blue-100 py-6 px-4">
+        <p class="text-blue-500">
+          この記事は限定共有記事です。投稿者本人とURLを知っているユーザーのみがアクセスできます。
+          記事を全体公開するには、公開設定で公開範囲を「全体に公開」にしてください。
+        </p>
+      </div>
+    <% end %>
+      <p><%= current_user.name %></p>
+    <h2><%= @article.title %></h2>
+    <% @article.tags.each do |tag| %>
+      <span><%= tag.name %></span>
+    <% end %>
+    <span>投稿日 <%= l @article.created_at %></span>
+    <%# TODO: 閲覧履歴 %>
+    <span>◯◯ views</span>
+
+    <p class="">
+      <%= @article.content %>
+    </p>
+  </div>
+
+  <div class="bg-white">
+    <span>@<%= @article.user.name %>(<%= @article.user.nickname %>)</span>
+  </div>
+</div>
