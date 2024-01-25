@@ -6,11 +6,11 @@
     <div class="border-r w-1/2 p-2">
       <div class="border-b mb-6">
         <%= link_to 'GitHubでログイン', new_user_session_path,
-                      class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
+                    class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
         <%= link_to 'Googleでログイン', new_user_session_path,
-                      class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
+                    class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
         <%= link_to 'X(Twitter)でログイン', new_user_session_path,
-                      class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
+                    class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
         <p class="mb-4 text-sm text-gray-300">X(Twitter)ログインに制限が生じる可能性がございます。<br>
           他のログイン方法を併用お願いします。</p>
       </div>
@@ -27,15 +27,15 @@
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="mb-6">
           <%= f.input :email,
-                    required: false,
-                    placeholder: 'メールアドレス',
-                    input_html: { autocomplete: 'email', class: 'rounded border-custom-gray py-1 mb-2 w-full focus:outline-custom-green' },
-                    label: false %>
+                      required: false,
+                      placeholder: 'メールアドレス',
+                      input_html: { autocomplete: 'email', class: 'rounded border-custom-gray py-1 mb-2 w-full focus:outline-custom-green' },
+                      label: false %>
           <%= f.input :password,
-                    required: false,
-                    placeholder: 'パスワード',
-                    input_html: { autocomplete: 'current-password', class: 'rounded border-custom-gray py-1 mb-2 w-full focus:outline-custom-green' },
-                    label: false %>
+                      required: false,
+                      placeholder: 'パスワード',
+                      input_html: { autocomplete: 'current-password', class: 'rounded border-custom-gray py-1 mb-2 w-full focus:outline-custom-green' },
+                      label: false %>
           <%# <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
           <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
             <%= link_to 'パスワードを忘れた場合', new_password_path(resource_name), class: 'text-blue-500' %><br>
