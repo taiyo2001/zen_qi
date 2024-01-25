@@ -1,20 +1,51 @@
-<h2>Log in</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+<div class="mb-20">
+<div class="border-b pb-7 mb-7">
+  <h2 class="text-4xl">ZenQi にログイン</h2>
+</div>
+<div class="flex">
+  <div class="border-r w-1/2 p-2">
+    <div class="border-b mb-6">
+          <%= link_to 'GitHubでログイン', new_user_session_path,
+                      class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
+          <%= link_to 'Googleでログイン', new_user_session_path,
+                      class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
+          <%= link_to 'X(Twitter)でログイン', new_user_session_path,
+                      class: 'rounded py-1 mb-2 w-full bg-white text-center font-bold block border border-custom-gray hover:bg-gray-100' %>
+      <p class="mb-4 text-sm text-gray-300">X(Twitter)ログインに制限が生じる可能性がございます。<br>他のログイン方法を併用お願いします。</p>
+    </div>
+    <div>
+      <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+        <span class="text-sm text-gray-300">
+          ZenQi のアカウントを持っていない場合は
+          <%= link_to '新規登録', new_registration_path(resource_name), class: 'text-blue-500' %>から。
+        </span>
+      <% end %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+  <div class=" w-1/2 p-2">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="mb-6">
+        <%= f.input :email,
+                    required: false,
+                    autofocus: true,
+                    placeholder: 'メールアドレス',
+                    input_html: { autocomplete: 'email', class: 'rounded border-custom-gray py-1 mb-2 w-full focus:outline-custom-green' },
+                    label: false %>
+        <%= f.input :password,
+                    required: false,
+                    placeholder: 'パスワード',
+                    input_html: { autocomplete: 'current-password', class: 'rounded border-custom-gray py-1 mb-2 w-full focus:outline-custom-green' },
+                    label: false %>
+        <%# <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+          <%= link_to 'パスワードを忘れた場合', new_password_path(resource_name), class: 'text-blue-500' %><br>
+        <% end %>
+      </div>
+      <div class="">
+        <%= f.button :submit, 'ZenQi にログイン', class: 'font-bold text-center text-white bg-custom-green py-2 w-full' %>
+      </div>
+    <% end %>
+    <%# <%= render 'devise/shared/links' %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
+</div>

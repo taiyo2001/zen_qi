@@ -1,18 +1,22 @@
-<h2>Forgot your password?</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+<div class="mb-20">
+  <div class="pb-7 mb-7 w-full">
+    <h2 class="text-4xl">パスワード再設定メールを送る</h2>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+    <%= f.error_notification %>
+    <div class="mb-6">
+      <span class="block font-bold mb-4">メールアドレス</span>
+      <%= f.input :email,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: 'email',
+                                class: 'rounded border-custom-gray py-1 mb-2 w-full shadow-none focus:outline-custom-green focus:border-white' },
+                  label: false %>
+      <p class="text-sm text-gray-300">登録されたメールアドレスのみ送信可能です。</p>
+    </div>
+    <%# TODO: ロボットの確認 %>
+    <div>
+      <%= f.button :submit, '送信', class: 'bg-custom-green py-2 px-3 text-sm text-white font-bold rounded border border-green-500' %>
+    </div>
+  <% end %>
+</div>
