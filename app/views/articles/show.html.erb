@@ -1,0 +1,39 @@
+<div class="py-8 px-8">
+  <div class="bg-white py-8 px-8 mb-6">
+    <% if @article.private? %>
+      <div class="bg-blue-700 py-6 px-4">
+        <p class="text-blue-500">
+          この記事は限定共有記事です。投稿者本人とURLを知っているユーザーのみがアクセスできます。
+          記事を全体公開するには、公開設定で公開範囲を「全体に公開」にしてください。
+        </p>
+      </div>
+    <% end %>
+    <p class="font-semibold">@<%= @article.user.name %>(<%= @article.user.nickname %>)</p>
+    <div class="mb-4">
+      <h2 class="text-2xl font-bold"><%= @article.title %></h2>
+    </div>
+    <div class="mb-4">
+      <% @article.tags.each do |tag| %>
+        <span class="bg-custom-gray rounded text-sm inline-block px-2 mx-2"><%= tag.name %></span>
+      <% end %>
+    </div>
+    <div class="text-custom-gray text-sm mb-20">
+      <span>投稿日 <%= l @article.created_at %></span>
+      <%# TODO: 閲覧履歴 %>
+      <span>◯◯ views</span>
+    </div>
+    <div class="pb-20">
+      <p class="">
+        <%= @article.content %>
+      </p>
+    </div>
+  </div>
+  <div class="bg-white py-6 px-8">
+    <span class="font-semibold text-sm mb-4">@<%= @article.user.name %>(<%= @article.user.nickname %>)</span>
+    <span class="font-semibold text-sm"><%= @article.user.location %></span>
+  </div>
+
+      <% if @article.user.id == current_user.id %>
+          <%= link_to '編集', edit_article_path(@article), class: 'border-2 border-custom-green rounded-full' %>
+    <% end %>
+</div>

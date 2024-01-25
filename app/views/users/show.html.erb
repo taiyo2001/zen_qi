@@ -1,0 +1,53 @@
+<div class="flex py-4 px-4">
+  <div class="w-1/2 bg-white pt-10 px-20 mb-10 rounded-lg mr-2">
+    <div class="">
+      <span><%= @user.nickname %></span>
+      <span>@<%= @user.name %></span>
+    </div>
+    <% if @user.id == current_user.id %>
+      <%= link_to 'プロフォールを編集する', new_article_path, class: 'bg-custom-gray rounded-lg text-center py-2 w-full' %>
+    <% end %>
+  </div>
+  <div class="w-1/2 ml-2">
+    <div class="rounded-lg bg-black text-white text-sm py-6 px-4 mb-4">
+      <span>$ analyze @<%= @user.name %></span>
+      <div class="flex">
+        <div>
+          <span class="text-custom-orange">投稿した記事</span><span>:</span>
+        </div>
+        <div>
+          <span class="text-custom-orange">回答した質問</span><span>:</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg">
+      <ul class="flex">
+        <li>投稿した記事</li>
+        <li>コメントした記事</li>
+        <li>編集リクエストした記事</li>
+      </ul>
+      <div>
+        <% @user.articles.each do |article| %>
+          <%= link_to article, class: 'block w-full p-2 border-b' do %>
+            <div>
+              <span class="block font-semibold text-sm">@<%= article.user.name %>(<%= article.user.nickname %>)</span>
+              <span class="block text-sm mb-2 text-custom-gray"><%= l article.created_at %></span>
+            </div>
+            <div>
+              <h3 class="font-bold text-lg"><%= article.title %></h3>
+              <div class="mb-4">
+                <% article.tags.each do |tag| %>
+                  <span class="bg-custom-gray rounded text-sm inline-block px-2 mx-2"><%= tag.name %></span>
+                <% end %>
+                <span><%= article.goods_count %></span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% if user_signed_in? %>
+  <%= button_to 'ログアウト', destroy_user_session_path, { method: :delete, data: { turbo_confirm: '本当に削除しますか？' } } %>
+<% end %>

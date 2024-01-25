@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :question_comment_goods
   has_many :question_comment_threads
   has_many :question_comment_thread_goods
+  has_many :tags, through: :articles
 
   validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }, uniqueness: { case_sensitive: false }
   validates :name, presence: true

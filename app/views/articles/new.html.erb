@@ -1,0 +1,5 @@
+<div class="p-2 h-screen-minus-header flex flex-col">
+  <%= form_with(model: @article, url: articles_path(@article), method: :post, data: { turbo: false }, html: { class: 'h-full' }) do |form| %>
+    <%= render partial: 'form', locals: { form: } %>
+  <% end %>
+</div>
