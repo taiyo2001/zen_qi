@@ -1,8 +1,8 @@
 require 'faker'
 require 'gimei'
 
-# テストユーザ
 # NOTE: コールバックがあるのでバルクインサートは使わない
+# test user
 User.create!(
   name: 'DevUser',
   nickname: 'DevUser',
