@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
-  def index
-    return unless user_signed_in?
+  PAGE_SIZE = 10
 
-    @current_user = current_user
+  def index
+    @articles = Article.order('RANDOM()').limit(PAGE_SIZE)
   end
 end

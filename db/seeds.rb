@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-%w[user].each do |item|
+%w[user article].each do |item|
   puts("======== begin create #{item} sample data ========")
   require_relative "seeds/#{item}"
   puts("======== finish create #{item} sample data ========")

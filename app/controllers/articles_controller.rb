@@ -18,6 +18,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @comment = ArticleComment.new
   end
 
   def edit
@@ -38,6 +39,8 @@ class ArticlesController < ApplicationController
       end
     end
   end
+
+  def timeline; end
 
   private
 

@@ -1,39 +1,91 @@
-<div class="py-8 px-8">
-  <div class="bg-white py-8 px-8 mb-6">
-    <% if @article.private? %>
-      <div class="bg-blue-700 py-6 px-4">
-        <p class="text-blue-500">
-          この記事は限定共有記事です。投稿者本人とURLを知っているユーザーのみがアクセスできます。
-          記事を全体公開するには、公開設定で公開範囲を「全体に公開」にしてください。
-        </p>
-      </div>
-    <% end %>
-    <p class="font-semibold">@<%= @article.user.name %>(<%= @article.user.nickname %>)</p>
-    <div class="mb-4">
-      <h2 class="text-2xl font-bold"><%= @article.title %></h2>
-    </div>
-    <div class="mb-4">
-      <% @article.tags.each do |tag| %>
-        <span class="bg-custom-gray rounded text-sm inline-block px-2 mx-2"><%= tag.name %></span>
+<div class="py-10 px-6">
+  <div class="flex">
+    <div class="mr-6">
+      <%= link_to root_path, class: 'block mb-4 text-center' do %>
+        <div class="bg-white rounded-full border p-2">
+          <%= render 'atoms/good', size: 6 %>
+        </div>
+        <span class="text-sm font-bold"><%= @article.goods_count %></span>
+      <% end %>
+      <%= link_to root_path, class: 'block mb-4 text-center' do %>
+        <div class="bg-white rounded-full border p-2">
+          <%= render 'atoms/stock', size: 6 %>
+        </div>
+        <span class="text-sm font-bold"><%= @article.stocks_count %></span>
       <% end %>
     </div>
-    <div class="text-custom-gray text-sm mb-20">
-      <span>投稿日 <%= l @article.created_at %></span>
-      <%# TODO: 閲覧履歴 %>
-      <span>◯◯ views</span>
-    </div>
-    <div class="pb-20">
-      <p class="">
-        <%= @article.content %>
-      </p>
+    <div class="w-full">
+      <div class="bg-white py-8 px-12 mb-6 rounded-lg">
+        <% if @article.private? %>
+          <div class="bg-blue-100 py-6 px-4">
+            <p class="text-custom-blue">
+              この記事は限定共有記事です。投稿者本人とURLを知っているユーザーのみがアクセスできます。
+              記事を全体公開するには、公開設定で公開範囲を「全体に公開」にしてください。
+            </p>
+          </div>
+        <% end %>
+        <div class="flex">
+          <div class="w-6 h-6 rounded-full overflow-hidden mr-2">
+            <%= image_tag @article.user.image, class: 'w-full h-full object-cover' %>
+          </div>
+          <div class="flex flex-col">
+            <span class="block font-semibold">@<%= @article.user.name %>(<%= @article.user.nickname %>)</span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <h2 class="text-2xl font-bold"><%= @article.title %></h2>
+        </div>
+        <div class="mb-4">
+          <% @article.tags.each do |tag| %>
+            <span class="bg-custom-gray rounded text-sm inline-block px-2 mx-0.5"><%= tag.name %></span>
+          <% end %>
+        </div>
+        <div class="text-gray-500 text-sm mb-20">
+          <span>投稿日 <%= l @article.created_at %></span>
+          <%# TODO: 閲覧履歴 %>
+          <% if @article.user.id == current_user.id %>
+            <span>◯◯ views</span>
+          <% end %>
+        </div>
+        <div class="pb-20">
+          <p class="">
+            <%= @article.content %>
+          </p>
+        </div>
+      </div>
+      <div class="bg-white py-8 px-12 mb-6 rounded-lg">
+        <div class="flex">
+          <div class="w-16 h-16 rounded-full overflow-hidden mr-2">
+            <%= image_tag @article.user.image, class: 'w-full h-full object-cover' %>
+          </div>
+          <div class="flex flex-col justify-between">
+            <span class="block font-semibold">@<%= @article.user.name %>(<%= @article.user.nickname %>)</span>
+            <span class="block"><%= @article.user.profile %></span>
+          </div>
+        </div>
+      </div>
+      <% if user_signed_in? && @article.user.id == current_user.id %>
+        <%= link_to '編集', edit_article_path(@article), class: 'border-2 border-custom-green rounded-full' %>
+      <% end %>
+      <div class="bg-white py-6 mb-6 rounded-lg">
+        <h3 class="px-12 border-b mb-6 font-bold">コメント</h3>
+        <% if user_signed_in? %>
+          <div class="px-12">
+            <div class="flex items-center mb-4">
+              <div class="w-10 h-10 rounded-full overflow-hidden mr-2">
+                <%= image_tag current_user.image, class: 'w-full h-full object-cover' %>
+              </div>
+              <span>コメントする</span>
+            </div>
+            <%= form_with(model: @comment, url: articles_path(@comment), method: :post, data: { turbo: false }, html: { class: 'h-full' }) do |form| %>
+              <%= form.text_area :content,
+                                 placeholder: 'テキストを入力',
+                                 class: 'rounded border py-1 mb-2 w-full focus:outline-none' %>
+              <%= form.submit '投稿する', class: 'font-bold text-white bg-custom-green border border-green-500 p-2 rounded-lg cursor-pointer' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-  <div class="bg-white py-6 px-8">
-    <span class="font-semibold text-sm mb-4">@<%= @article.user.name %>(<%= @article.user.nickname %>)</span>
-    <span class="font-semibold text-sm"><%= @article.user.location %></span>
-  </div>
-
-      <% if @article.user.id == current_user.id %>
-          <%= link_to '編集', edit_article_path(@article), class: 'border-2 border-custom-green rounded-full' %>
-    <% end %>
 </div>

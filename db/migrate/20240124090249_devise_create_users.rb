@@ -34,8 +34,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
 
       t.string :name, comment: "ユーザ名"
       t.string :nickname, comment: "ニックネーム"
+      t.string :profile, comment: "紹介文"
       t.string :url, comment: "URL"
       t.string :location, comment: "ロケーション"
+      t.boolean :initial_setting, null: false, default: false, comment: "初期設定が完了したか"
       t.integer :followers_count, null: false, default: 0, comment: "フォロワー数"
       t.integer :followees_count, null: false, default: 0, comment: "フォロー数"
       t.integer :articles_count, null: false, default: 0, comment: "記事投稿数"
