@@ -6,7 +6,7 @@ require 'gimei'
 User.create!(
   name: 'DevUser',
   nickname: 'DevUser',
-  email: 'sample@example.com',
+  email: 'zenqisample@example.com',
   password: 'password',
   profile: 'profile text',
   url: 'http://example.com',
@@ -17,10 +17,10 @@ User.create!(
   User.create!(
     name: Faker::Name.initials,
     nickname: Faker::Name.initials,
-    email: "example#{i}@example.com",
+    email: "sample#{i + 1}@example.com",
     password: 'password',
-    profile: "profile#{i}",
-    url: "http://example#{i}.com",
-    location: "location#{i}"
+    profile: "profile#{i + 1}",
+    url: "http://example#{i + 1}.com",
+    location: "location#{i + 1}"
   )
 end
