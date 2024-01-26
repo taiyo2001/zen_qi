@@ -1,5 +1,5 @@
 users_id = User.pluck(:id)
-test_user = User.find_by(email: 'sample@example.com')
+test_user = User.find_by(email: 'zenqisample@example.com')
 
 arr_text_tags = ['tag1 tag2 tag3', 'tag2 tag3 tag4', 'tag4 tag5 tag6', 'tag5 tag6 tag7', 'tag7 tag8', 'tag8 tag9 tag10']
 
