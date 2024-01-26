@@ -1,24 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### プロジェクト概要
+---
+Qiitaの複製
 
-Things you may want to cover:
+### LocalのDev環境構築
+---
+.tool-versionsを確認して、ruby & nodejsセットアップ後
 
-* Ruby version
+yarnが導入されていない場合(webpacker等で利用)
+```
+npm i -g yarn
+```
 
-* System dependencies
+Build
+```
+bundle && yarn && rails db:migrate:reset && rails db:seed
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+立ち上げ
+```
+bin/dev
+```
