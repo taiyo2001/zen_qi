@@ -22,3 +22,8 @@ bundle && yarn && rails db:migrate:reset && rails db:seed
 ```
 bin/dev
 ```
+
+### ログイン情報
+---
+email：sample@example.com
+password: password
