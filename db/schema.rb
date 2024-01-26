@@ -10,9 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_101705) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_25_222105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.string "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "article_comment_goods", comment: "記事コメントのいいね", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "いいねを押したユーザ"
@@ -70,17 +98,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_101705) do
 
   create_table "articles", comment: "記事", force: :cascade do |t|
     t.bigint "user_id", null: false, comment: "記事を作成したユーザ"
-    t.bigint "tag_id", comment: "属するタグ"
     t.string "title", comment: "記事タイトル"
     t.text "content", comment: "記事内容"
     t.boolean "private", comment: "公開するかどうか"
-    t.integer "status", limit: 2, default: 0, null: false, comment: "すステータス(draft:0, active:10, inactive:20)"
+    t.integer "status", limit: 2, default: 0, null: false, comment: "ステータス(draft:0, active:10, inactive:20)"
     t.integer "goods_count", default: 0, null: false, comment: "いいね数"
     t.integer "stocks_count", default: 0, null: false, comment: "ストック数"
     t.integer "comments_count", default: 0, null: false, comment: "コメント数"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tag_id"], name: "index_articles_on_tag_id"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
@@ -196,8 +222,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_101705) do
     t.datetime "remember_created_at"
     t.string "name", comment: "ユーザ名"
     t.string "nickname", comment: "ニックネーム"
+    t.string "profile", comment: "紹介文"
     t.string "url", comment: "URL"
     t.string "location", comment: "ロケーション"
+    t.boolean "initial_setting", default: false, null: false, comment: "初期設定が完了したか"
     t.integer "followers_count", default: 0, null: false, comment: "フォロワー数"
     t.integer "followees_count", default: 0, null: false, comment: "フォロー数"
     t.integer "articles_count", default: 0, null: false, comment: "記事投稿数"
@@ -207,6 +235,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_101705) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "article_comment_goods", "article_comments"
   add_foreign_key "article_comment_goods", "users"
   add_foreign_key "article_comments", "articles"
@@ -217,7 +247,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_101705) do
   add_foreign_key "article_stocks", "users"
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
-  add_foreign_key "articles", "tags"
   add_foreign_key "articles", "users"
   add_foreign_key "organization_fellowships", "organizations"
   add_foreign_key "organization_fellowships", "users"
