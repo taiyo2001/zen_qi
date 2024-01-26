@@ -10,7 +10,7 @@
     <div>
       <ul class="flex justify-between text-sm text-gray-500">
         <li>
-          <div class="flex flex-col"><span class="mx-auto"><%= @user.articles.active.count %></span><span class="mx-auto">投稿</span></div>
+          <div class="flex flex-col"><span class="mx-auto"><%= @user.articles.active.unprivate.count %></span><span class="mx-auto">投稿</span></div>
         </li>
         <li>
           <div class="flex flex-col"><span class="mx-auto"><%= @user.followees_count %></span><span class="mx-auto">フォロー</span></div>
@@ -44,7 +44,7 @@
         <li>編集リクエストした記事</li>
       </ul>
       <div>
-        <% @user.articles.active.each do |article| %>
+        <% @user.articles.active.unprivate.each do |article| %>
           <%= link_to article, class: 'block w-full p-2 border-b' do %>
             <div>
               <span class="block font-semibold text-sm">@<%= article.user.name %>(<%= article.user.nickname %>)</span>
@@ -69,3 +69,5 @@
 <% if user_signed_in? %>
   <%= button_to 'ログアウト', destroy_user_session_path, { method: :delete, data: { turbo_confirm: '本当に削除しますか？' } } %>
 <% end %>
+
+<div class="w-4 h-4"></div>

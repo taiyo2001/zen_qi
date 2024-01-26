@@ -11,6 +11,8 @@ class Article < ApplicationRecord
   has_many :article_tags, dependent: :destroy
   has_many :tags, through: :article_tags
 
+  scope :unprivate, -> { where(private: false).order(created_at: :desc) }
+
   # status (
   # draft: 下書き,
   # active: アクティブ,
