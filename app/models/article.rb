@@ -23,7 +23,6 @@ class Article < ApplicationRecord
     undraft.validates :content, presence: true
     undraft.validate :validate_article_tags_count
   end
-  validate :check_draft_values, if: -> { draft? }
   validates :status, presence: true, inclusion: { in: statuses.keys }
 
   def create_tags
