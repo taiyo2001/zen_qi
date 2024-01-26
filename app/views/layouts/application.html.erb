@@ -29,8 +29,10 @@
         <% end %>
         <% if user_signed_in? %>
           <%# TODO: turboが使えてない %>
-          <%= link_to 'お知らせ', new_user_session_path, class: ' mx-2 border-2 border-custom-green' %>
-          <%= link_to 'ユーザ', user_path(current_user), class: ' mx-2 border-2 border-custom-green rounded-full' %>
+          <%= link_to 'お知らせ', new_user_session_path, class: 'mx-2 border-2 border-custom-green' %>
+          <%= link_to user_path(current_user), class: 'mx-2 rounded-full overflow-hidden w-10 h-10 block' do %>
+            <%= image_tag current_user.image, class: 'w-full h-full object-cover' %>
+          <% end %>
           <%= link_to '投稿する', new_article_path, class: ' mx-2 text-white bg-custom-green font-bold rounded-lg py-2 px-4' %>
         <% else %>
           <%= link_to 'ログイン', new_user_session_path, class: 'mx-2 block border-2 border-custom-green rounded-lg py-1 p-2' %>
@@ -46,38 +48,38 @@
       <% if user_signed_in? %>
         <li>
           <%= link_to 'ホーム', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-          <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+          <div class="h-0.5  <%= 'bg-custom-green' if request.path == '/' %>">
           </div>
         </li>
         <li>
-          <%= link_to 'タイムライン', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-          <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+          <%= link_to 'タイムライン', timeline_path, class: 'px-2 pt-4 pb-8' %>
+          <div class="h-0.5 <%= 'bg-custom-green' if request.path == '/timeline' %>">
           </div>
         </li>
       <% end %>
       <li>
         <%= link_to 'トレンド', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-        <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+        <div class="h-0.5 <%= 'bg-custom-green' if request.path == '/trend' %>">
         </div>
       </li>
       <li>
         <%= link_to '質問', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-        <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+        <div class="h-0.5 <%= 'bg-custom-green' if request.path == '/question' %>">
         </div>
       </li>
       <li>
         <%= link_to '公式イベント', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-        <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+        <div class="h-0.5 <%= 'bg-custom-green' if request.path == '/official-events' %>">
         </div>
       </li>
       <li>
         <%= link_to '公式コラム', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-        <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+        <div class="h-0.5 <%= 'bg-custom-green' if request.path == '/official-columns' %>">
         </div>
       </li>
       <li>
         <%= link_to '募集', new_user_session_path, class: 'px-2 pt-4 pb-8' %>
-        <div class="h-0.5 bg-custom-green <%= 'border-b-4 border-custom-green' if request.path == '/' %>">
+        <div class="h-0.5 <%= 'bg-custom-green' if request.path == '/opportunities' %>">
         </div>
       </li>
     </ul>
