@@ -8,9 +8,6 @@
     <%= javascript_importmap_tags %>
     <%= stylesheet_link_tag 'tailwind', 'inter-font', "data-turbo-track": 'reload' %>
     <%= stylesheet_link_tag 'application', "data-turbo-track": 'reload' %>
-    <%# <script src="
-https://cdn.jsdelivr.net/npm/stimulus@3.2.2/dist/stimulus.min.js
-"></script> %>
   </head>
   <body>
     <% flash.each do |key, value| %>
@@ -31,8 +28,9 @@ https://cdn.jsdelivr.net/npm/stimulus@3.2.2/dist/stimulus.min.js
           <%= f.submit '検索', class: 'hidden' %>
         <% end %>
         <% if user_signed_in? %>
-          <%# TODO: turboが使えてない %>
-          <%= link_to 'お知らせ', new_user_session_path, class: 'mx-2 border-2 border-custom-green' %>
+          <%= link_to new_user_session_path, class: 'mx-2 overflow-hidden flex items-center' do %>
+            <i class="fa-regular fa-bell fa-2x"></i>
+          <% end %>
           <%= link_to user_path(current_user), class: 'mx-2 rounded-full overflow-hidden w-10 h-10 block' do %>
             <%= image_tag current_user.image, class: 'w-full h-full object-cover' %>
           <% end %>
