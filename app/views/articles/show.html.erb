@@ -1,11 +1,13 @@
 <div class="py-10 px-6">
   <div class="flex">
     <div class="mr-6">
-      <%= link_to root_path, class: 'block mb-4 text-center' do %>
+      <%= link_to root_path, class: 'block text-center' do %>
         <div class="bg-white rounded-full border p-2">
           <%= render 'atoms/good', size: 6 %>
         </div>
-        <span class="text-sm font-bold"><%= @article.goods_count %></span>
+      <% end %>
+      <%= link_to root_path, class: 'block mx-auto mb-4 text-center' do %>
+        <span class="text-sm font-bold hover:underline"><%= @article.goods_count %></span>
       <% end %>
       <%= link_to root_path, class: 'block mb-4 text-center' do %>
         <div class="bg-white rounded-full border p-2">
@@ -13,6 +15,28 @@
         </div>
         <span class="text-sm font-bold"><%= @article.stocks_count %></span>
       <% end %>
+      <div class='block mb-4 text-center' data-controller="modal">
+        <div class="p-2 relative">
+          <span class="font-bold text-gray-500 cursor-pointer" data-action="click->modal#toggleModal">...</span>
+          <div class="absolute top-[-100px] left-8 bg-white border-2 w-60 rounded-lg hidden" data-modal-target="modal">
+            <div class="px-4 pb-4 border-b">
+              <span class="text-gray-500 text-sm text-start font-bold mb-2">記事の改善</span>
+              <%= link_to '編集リクエストを送る', root_path, class: 'block hover:bg-custom-gray' %>
+            </div>
+            <div class="p-4 border-b">
+              <span class="text-gray-500 text-sm font-bold mb-2">記事の情報</span>
+              <%= link_to '編集履歴', root_path, class: 'block mb-2 hover:bg-custom-gray' %>
+              <%= link_to '編集リクエスト一覧', root_path, class: 'block mb-2 hover:bg-custom-gray' %>
+              <%= link_to 'いいねしたユーザー一覧', root_path, class: 'block mb-2 hover:bg-custom-gray' %>
+              <%= link_to 'Markdown で本文を見る', root_path, class: 'block hover:bg-custom-gray' %>
+            </div>
+            <div class="p-4 border-b">
+              <%= link_to '記事を購読する', root_path, class: 'block mb-2 hover:bg-custom-gray' %>
+              <%= link_to '問題がある記事を報告する', root_path, class: 'block hover:bg-custom-gray' %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="w-full">
       <div class="bg-white py-8 px-12 mb-6 rounded-lg">
@@ -41,9 +65,12 @@
           <% end %>
         </div>
         <div class="text-gray-500 text-sm mb-20">
+          <% if @article.updated_at > @article.created_at %>
+            <span class="mr-2">最終更新日 <%= l @article.updated_at %></span>
+          <% end %>
           <span>投稿日 <%= l @article.created_at %></span>
           <%# TODO: 閲覧履歴 %>
-          <% if @article.user.id == current_user.id %>
+          <% if user_signed_in? && @article.user.id == current_user.id %>
             <span>◯◯ views</span>
           <% end %>
         </div>
