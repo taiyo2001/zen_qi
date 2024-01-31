@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
   def edit
     @article = Article.find(params[:id])
     tag_names = @article.tags.map(&:name)
-    @article.text_tags = tag_names.join(', ')
+    @article.text_tags = tag_names.join(' ')
   end
 
   def update

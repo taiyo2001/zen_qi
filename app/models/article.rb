@@ -32,6 +32,7 @@ class Article < ApplicationRecord
 
     return if text_tags.nil?
 
+    article_tags.destroy_all
     text_tags.split.map do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name)
       ArticleTag.find_or_create_by(article: self, tag:)
